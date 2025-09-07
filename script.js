@@ -80,3 +80,8 @@ function releaseBalloons() {
   }
 }
 
+function playTrumpet() {
+  let trumpet = document.getElementById("trumpet");
+  trumpet.currentTime = 0;
+  trumpet.play().catch(e => console.log("Autoplay blocked:", e));
+}
