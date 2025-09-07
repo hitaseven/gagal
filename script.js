@@ -1,101 +1,61 @@
-// Pesta
-function party() {
-  startConfetti();
-  releaseBalloons();
-  document.getElementById("trumpet").play();
+// Switch page function
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+const partyBtn = document.getElementById("partyBtn");
+const nextBtn = document.getElementById("nextBtn");
+const trumpet = document.getElementById("trumpet");
+const bgMusic = document.getElementById("bg-music");
+
+// Simple confetti effect
+function launchConfetti() {
+  const duration = 1 * 1000;
+  const end = Date.now() + duration;
+
+  (function frame() {
+    // Basic confetti effect
+    const colors = ['#bb0000', '#ffffff', '#FFD700', '#FF69B4', '#87CEEB'];
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.width = '10px';
+    confetti.style.height = '10px';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.top = '0px';
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.opacity = 0.7;
+    confetti.style.borderRadius = '50%';
+    document.body.appendChild(confetti);
+
+    let fall = 0;
+    const fallInterval = setInterval(() => {
+      fall += 5;
+      confetti.style.top = fall + 'px';
+      if (fall > window.innerHeight) {
+        clearInterval(fallInterval);
+        confetti.remove();
+      }
+    }, 16);
+
+    if (Date.now() < end) {
+      requestAnimationFrame(frame);
+    }
+  }());
 }
 
-// Pindah ke halaman kedua
-function goToPage2() {
-  document.getElementById("page1").style.transform = "rotateY(180deg)";
-  document.getElementById("page2").classList.remove("hidden");
-  document.getElementById("page2").style.transform = "rotateY(0)";
-  document.getElementById("bg-music").play();
-}
-
-// -------- Confetti --------
-function startConfetti() {
-  const canvas = document.getElementById("confetti");
-  const ctx = canvas.getContext("2d");
-
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  let particles = [];
-  const colors = ["#ff0", "#0f0", "#f0f", "#0ff", "#f00", "#00f"];
-
-  for (let i = 0; i < 100; i++) {
-    particles.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height - canvas.height,
-      w: 10,
-      h: 20,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      speed: Math.random() + 1
-    });
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      ctx.fillStyle = p.color;
-      ctx.fillRect(p.x, p.y, p.w, p.h);
-    });
-  }
-
-  function update() {
-    particles.forEach(p => {
-      p.y += p.speed;
-    });
-  }
-
-  let frames = 0;
-  function loop() {
-    frames++;
-    if (frames > 100) return; // confetti berhenti setelah beberapa frame
-    draw();
-    update();
-    requestAnimationFrame(loop);
-  }
-
-  loop();
-}
-
-// -------- Balloons --------
-function releaseBalloons() {
-  const container = document.getElementById("balloons");
-  const colors = ["#ff69b4", "#ff0000", "#ff8c00", "#00bfff", "#32cd32"];
-
-  for (let i = 0; i < 8; i++) {
-    const balloon = document.createElement("div");
-    balloon.className = "balloon";
-    balloon.style.left = Math.random() * 100 + "vw";
-    balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
-    balloon.style.animationDuration = (4 + Math.random() * 2) + "s";
-    container.appendChild(balloon);
-
-    setTimeout(() => {
-      balloon.remove();
-    }, 6000);
-  }
-}
-
+// Play trumpet sound
 function playTrumpet() {
-  let trumpet = document.getElementById("trumpet");
   trumpet.currentTime = 0;
-  trumpet.play().catch(e => console.log("Autoplay blocked:", e));
+  trumpet.play().catch(err => console.log("Autoplay blocked:", err));
 }
 
-function playTrumpet() {
-  let trumpet = document.getElementById("trumpet");
-  trumpet.currentTime = 0;
-  trumpet.play().catch(err => console.log("Blocked:", err));
-}
+// Party button
+partyBtn.addEventListener("click", () => {
+  launchConfetti();
+  playTrumpet();
+});
 
-function playBackgroundMusic() {
-  let bg = document.getElementById("bg-music");
-  bg.currentTime = 0;
-  bg.play().catch(err => console.log("Blocked:", err));
-}
-
-
+// Next page button
+nextBtn.addEventListener("click", () => {
+  page1.classList.remove("active");
+  page2.classList.add("active");
+  bgMusic.play().catch(err => console.log("Autoplay blocked:", err));
+});
