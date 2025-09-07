@@ -1,151 +1,86 @@
-body, html {
+* {
   margin: 0;
   padding: 0;
-  height: 100%;
-  font-family: "Times New Roman", serif;
-  overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* Buku */
-.book {
-  position: relative;
+body, html {
   width: 100%;
   height: 100%;
-  perspective: 2000px;
+  font-family: 'Times New Roman', serif;
+  overflow-x: hidden;
 }
 
-/* Halaman umum */
 .page {
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: none;
   width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
+  height: 100vh;
+}
+
+.page.active {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: transform 1.5s ease-in-out;
   text-align: center;
+  padding: 20px;
 }
 
-/* Halaman depan */
+/* Page 1 */
 #page1 {
-  background: #FFC5D3;
+  background-color: #FFC5D3;
   color: white;
-  z-index: 2;
 }
 
 #page1 h1 {
-  font-size: 32px;
+  font-size: 2rem;
   margin-bottom: 20px;
 }
 
 #page1 button {
-  padding: 12px 25px;
+  padding: 12px 24px;
+  margin: 10px;
   border: none;
-  border-radius: 10px;
-  background: white;
-  color: #FFC5D3;
-  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 #nextBtn {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  font-size: 14px;
-  padding: 8px 15px;
 }
 
-/* Halaman kedua */
-#page2 {
-  background: #D1C3B7;
-  color: black;
-  padding: 30px;
-  transform: rotateY(-180deg);
-}
-
-/* Surat */
-.letter {
-  max-width: 600px;
-  background: #fffaf5;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  animation: slideUp 1s ease-out forwards;
-}
-
-.letter h2 {
-  margin-top: 0;
-}
-
-.hidden {
-  display: none;
-}
-
-/* Animasi surat keluar */
-@keyframes slideUp {
-  from { transform: translateY(100px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-/* Confetti */
-#confetti {
+/* Confetti canvas */
+#confetti-canvas {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 5;
+  z-index: 9999;
 }
 
-/* Balon */
-#balloons {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 4;
-}
-
-.balloon {
-  position: absolute;
-  bottom: -150px;
-  width: 50px;
-  height: 70px;
-  border-radius: 50% 50% 50% 50%;
-  opacity: 0.8;
-  animation: floatUp 6s linear forwards;
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(0) scale(1); }
-  100% { transform: translateY(-110vh) scale(1.2); }
-}
-
-.letter-container {
+/* Page 2 */
+#page2 {
+  background-color: #D1C3B7;
   display: flex;
-  justify-content: center;   
-  align-items: center;       
-  flex-direction: column;    
-  min-height: 100vh;         
-  padding: 20px;             
-  box-sizing: border-box;    
-  text-align: center;        
+  justify-content: center;
+  align-items: center;
 }
 
 .letter {
   background: #fff;
   border-radius: 12px;
   padding: 20px;
-  max-width: 600px;          
-  width: 100%;               
+  max-width: 600px;
+  width: 90%;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.letter h1 {
+  margin-bottom: 20px;
 }
