@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Surprise</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="book">
+    <!-- Halaman Pertama -->
+    <div id="page1" class="page front">
+      <h1>HAPPY BIRTHDAY BUBSKI!</h1>
+      <button onclick="party()">START THE PARTY</button>
+
+      <!-- Tombol Next -->
+      <button id="nextBtn" onclick="goToPage2()">NEXT PAGE →</button>
+    </div>
+
+    <!-- Halaman Kedua -->
+    <div id="page2" class="page back hidden">
+      <div class="letter">
+        <h2>Happy Sweet Seventeen, Cintaku</h2>
+        <p>
+          Sesosok sinar yang begitu terang<br>
+          Menyilaukan sepasang mata yang bersaksi<br>
+          Sesosok sinar yang tak berhenti memancar<br>
+          Dia lahir dan berbinar tepat di hari ini<br><br>
+
+          Tujuh belas tahun terangnya terpancar<br>
+          Silau cahayanya menerangkan kehidupan<br>
+          Panasnya hangat merambat di dalam nadi<br>
+          Memeluk erat jiwa raga yang ringkih<br><br>
+
+          Ia sang cahaya abadi<br>
+          Semburat sepanjang hari<br>
+          Selamanya akan bersinar terang<br>
+          Benderang ia di tengah kerumunan gelap
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canvas Confetti -->
+  <canvas id="confetti"></canvas>
+
+  <!-- Sound effect pesta -->
+  <audio id="trumpet" src="music/trumpet.mp3"></audio>
+
+  <!-- Musik halaman kedua -->
+  <audio id="bg-music" src="music/background.mp3" loop></audio>
+
+  <!-- Container Balon -->
+  <div id="balloons"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

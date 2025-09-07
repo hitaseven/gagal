@@ -1,0 +1,132 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Times New Roman", serif;
+  overflow: hidden;
+}
+
+/* Buku */
+.book {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 2000px;
+}
+
+/* Halaman umum */
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 1.5s ease-in-out;
+  text-align: center;
+}
+
+/* Halaman depan */
+#page1 {
+  background: #FFC5D3;
+  color: white;
+  z-index: 2;
+}
+
+#page1 h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+#page1 button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: #FFC5D3;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#nextBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 14px;
+  padding: 8px 15px;
+}
+
+/* Halaman kedua */
+#page2 {
+  background: #D1C3B7;
+  color: black;
+  padding: 30px;
+  transform: rotateY(-180deg);
+}
+
+/* Surat */
+.letter {
+  max-width: 600px;
+  background: #fffaf5;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  animation: slideUp 1s ease-out forwards;
+}
+
+.letter h2 {
+  margin-top: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Animasi surat keluar */
+@keyframes slideUp {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Confetti */
+#confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Balon */
+#balloons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  width: 50px;
+  height: 70px;
+  border-radius: 50% 50% 50% 50%;
+  opacity: 0.8;
+  animation: floatUp 6s linear forwards;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-110vh) scale(1.2); }
+}
+
