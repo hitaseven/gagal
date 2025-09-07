@@ -1,86 +1,135 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html,body { height: 100%; width: 100%; font-family: "Times New Roman", serif; overflow: hidden; }
 
-body, html {
-  width: 100%;
-  height: 100%;
-  font-family: 'Times New Roman', serif;
-  overflow-x: hidden;
-}
-
+/* page base (stacked absolute so we can slide one in/out) */
 .page {
-  display: none;
-  width: 100%;
-  height: 100vh;
-}
-
-.page.active {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  justify-content: center;
   padding: 20px;
+  transition: transform 600ms ease, opacity 600ms ease;
+  transform: translateX(100%);    /* off-screen by default (to the right) */
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Page 1 */
-#page1 {
-  background-color: #FFC5D3;
-  color: white;
+/* active page */
+.page.active {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
-#page1 h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
+/* specific pages */
+#page1 { background: #FFC5D3; color: #ffffff; z-index: 40; }
+#page2 { background: #D1C3B7; color: #111; z-index: 30; }
+
+/* header */
+h1 {
+  font-weight: 700;
+  /* Times New Roman is default font-family already set */
 }
 
-#page1 button {
-  padding: 12px 24px;
-  margin: 10px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-}
+/* PAGE 1 layout */
+#page1 h1 { font-size: 2rem; margin-bottom: 18px; text-align: center; color: #fff; }
+.controls { display:flex; gap:12px; align-items:center; justify-content:center; flex-direction:column; }
 
+/* buttons */
+.btn {
+  background: #fff; color: #FFC5D3;
+  border: none; padding: 12px 20px; border-radius: 10px;
+  cursor: pointer; font-weight: 700; font-size: 1rem;
+  z-index: 60; /* always above confetti/balloons */
+}
+.btn.small { padding: 8px 12px; font-size: 0.9rem; }
+
+/* NEXT PAGE position bottom-right */
 #nextBtn {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 60;
+  background: rgba(255,255,255,0.95);
 }
 
-/* Confetti canvas */
-#confetti-canvas {
+/* containers for confetti & balloons (full screen); pointer-events none so buttons remain clickable) */
+#confetti-container,
+#balloon-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   pointer-events: none;
-  z-index: 9999;
+  overflow: visible;
+  z-index: 25; /* below buttons but above background */
 }
 
-/* Page 2 */
-#page2 {
-  background-color: #D1C3B7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* confetti pieces */
+.confetti {
+  position: fixed;
+  top: -10vh;
+  width: 8px; height: 12px;
+  border-radius: 2px;
+  opacity: 0.95;
+  transform-origin: center;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
 }
 
+@keyframes confetti-fall {
+  to { transform: translateY(120vh) rotate(720deg); opacity: 0.8; }
+}
+
+/* balloon style */
+.balloon {
+  position: fixed;
+  bottom: -120px;
+  width: 36px; height: 48px;
+  border-radius: 50% 50% 45% 45%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  opacity: 0.95;
+  transform-origin: center;
+  animation-name: balloon-up;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.balloon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -18px;
+  width: 2px;
+  height: 18px;
+  background: rgba(0,0,0,0.15);
+  transform: translateX(-50%);
+}
+
+@keyframes balloon-up {
+  to { transform: translateY(-120vh) rotate(12deg); opacity: 0.95; }
+}
+
+/* PAGE 2 (letter) */
 .letter {
-  background: #fff;
+  width: 100%;
+  max-width: 680px;
+  background: #fffaf5;
+  padding: 26px;
   border-radius: 12px;
-  padding: 20px;
-  max-width: 600px;
-  width: 90%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
   text-align: center;
+  z-index: 35;
 }
 
-.letter h1 {
-  margin-bottom: 20px;
-}
+/* make poem readable on phones */
+.poem p { margin-bottom: 14px; line-height: 1.5; font-size: 1rem; color: #111; }
+
+/* music control */
+.music-control { margin-top: 12px; display:flex; justify-content:center; align-items:center; gap:8px; }
+
+/* ensure no horizontal scroll caused by confetti/balloon */
+html,body { overflow-x: hidden; }
