@@ -85,3 +85,17 @@ function playTrumpet() {
   trumpet.currentTime = 0;
   trumpet.play().catch(e => console.log("Autoplay blocked:", e));
 }
+
+function playTrumpet() {
+  let trumpet = document.getElementById("trumpet");
+  trumpet.currentTime = 0;
+  trumpet.play().catch(err => console.log("Blocked:", err));
+}
+
+function playBackgroundMusic() {
+  let bg = document.getElementById("bg-music");
+  bg.currentTime = 0;
+  bg.play().catch(err => console.log("Blocked:", err));
+}
+
+
